@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como montar um eval — Rolmer Telis</title>
+<meta name="description" content="Como montar um eval: um sistema de testes para IA generativa, em três fases — preparar, executar, ajustar — usando um atendimento de clientes via chat como exemplo.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Como montar um eval — Rolmer Telis">
+<meta property="og:description" content="Um sistema de testes para IA generativa, em três fases — preparar, executar, ajustar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #14120F;
+    --ink-soft: #1B1815;
+    --card: #1D1A15;
+    --card-border: #2C2820;
+    --paper: #EDE7DC;
+    --paper-dim: #A79E8E;
+    --brass: #B08D4E;
+    --brass-dim: #6B5A38;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    min-height: 100%;
+  }
+
+  a{ color: inherit; }
+
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 40px;
+    background: rgba(20,18,15,0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .brand{
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--paper);
+  }
+
+  .brand span{ color: var(--brass); }
+
+  nav{
+    display: flex;
+    gap: 28px;
+  }
+
+  nav a{
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--paper-dim);
+    transition: color 0.2s ease;
+  }
+
+  nav a:hover{ color: var(--brass); }
+
+  footer{
+    text-align: center;
+    padding: 40px 24px 50px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass-dim);
+  }
+
+  @media (max-width: 560px){
+    header{ padding: 18px 20px; }
+    nav{ gap: 16px; }
+  }
+
+  /* ---- article hero ---- */
+  .article-hero{
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 56px 32px 10px;
+    text-align: left;
+  }
+
+  .back-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--paper-dim);
+    margin-bottom: 36px;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover{ color: var(--brass); }
+
+  .eyebrow{
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 18px;
+  }
+
+  .article-hero h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(1.9rem, 4.6vw, 2.9rem);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .lede{
+    margin-top: 18px;
+    color: var(--paper-dim);
+    font-size: 16px;
+    max-width: 58ch;
+    line-height: 1.75;
+  }
+
+  .article-meta{
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--card-border);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass-dim);
+  }
+
+  /* ---- prose body ---- */
+  .prose{
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 18px 32px 40px;
+  }
+
+  .prose h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: -0.005em;
+    color: var(--paper);
+    margin: 52px 0 18px;
+  }
+
+  .prose h2:first-child{ margin-top: 0; }
+
+  .prose h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--brass);
+    margin: 36px 0 14px;
+  }
+
+  .prose p{
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: var(--paper);
+    margin-bottom: 18px;
+  }
+
+  .prose p.dim{ color: var(--paper-dim); }
+
+  .prose strong{
+    font-weight: 500;
+    color: var(--paper);
+  }
+
+  .prose em{ color: var(--paper-dim); font-style: italic; }
+
+  .prose ul, .prose ol{
+    margin: 0 0 22px 1.3em;
+  }
+
+  .prose li{
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: var(--paper);
+    margin-bottom: 10px;
+  }
+
+  .prose li::marker{ color: var(--brass-dim); }
+
+  .divider{
+    height: 1px;
+    background: var(--card-border);
+    margin: 48px 0;
+  }
+
+  /* ---- footer nav back to the article grid ---- */
+  .article-footer-nav{
+    max-width: 700px;
+    margin: 20px auto 0;
+    padding: 0 32px 0;
+  }
+
+  .article-footer-nav a{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--brass);
+    border: 1px solid var(--brass-dim);
+    border-radius: 999px;
+    padding: 10px 18px;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .article-footer-nav a:hover{
+    border-color: var(--brass);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 620px){
+    .article-hero{ padding-top: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../index.html">Rolmer <span>Telis</span></a>
+  <nav>
+    <a href="portal.html#sobre">Sobre</a>
+    <a href="portal.html#artigos">Artigos</a>
+    <a href="portal.html#repos">Repos</a>
+    <a href="portal.html#playlists">Playlists</a>
+  </nav>
+</header>
+
+<section class="article-hero">
+  <a class="back-link" href="portal.html#artigos">&larr; Voltar para artigos</a>
+  <div class="eyebrow">Avaliação de modelos</div>
+  <h1>Como montar um eval: um sistema de testes para IA generativa</h1>
+  <p class="lede">Testar um modelo de IA numa tarefa não é como testar uma função — não existe um <code>assert</code> confiável. Um eval é a estrutura de engenharia que transforma "acho que o prompt melhorou" num número que dá pra comparar.</p>
+  <div class="article-meta">Artigo · 9 min de leitura</div>
+</section>
+
+<article class="prose">
+
+  <p>Testar um modelo de IA generativa numa tarefa não é como testar uma função. Não existe um <code>assert resultado == esperado</code> confiável, porque o mesmo modelo pode responder a mesma pergunta de duas formas diferentes — ambas corretas — e porque "correto" muitas vezes é uma questão de grau, não de sim/não. Um <strong>eval</strong> é a resposta de engenharia pra esse problema: uma bateria fixa de casos, critérios de nota definidos antes de rodar qualquer coisa, e um processo que transforma "acho que o prompt melhorou" em um número que você pode comparar entre versões.</p>
+
+  <p>Este artigo descreve como montar um eval do zero, usando como exemplo um caso concreto: um modelo que atende clientes via chat, respondendo com base na política interna de uma empresa. O raciocínio, porém, vale para qualquer tarefa — classificação, extração, geração de código, resumo.</p>
+
+  <h2>Por que não dá pra confiar só no "parece bom"</h2>
+
+  <p>Quando você ajusta um system prompt e testa com três perguntas na mão, duas coisas acontecem: você se convence rápido demais de que melhorou (viés de confirmação — você escolheu perguntas que já esperava que funcionassem), e você não sabe se quebrou algo que não testou. Um eval resolve os dois problemas ao fixar o conjunto de perguntas e repetir <strong>exatamente o mesmo teste</strong> a cada mudança, registrando o resultado de forma que dê pra comparar.</p>
+
+  <p class="dim">O eval não substitui o julgamento humano — ele estrutura onde e quando esse julgamento entra, e automatiza o que pode ser automatizado em volta dele.</p>
+
+  <h2>As três fases</h2>
+
+  <p>Um eval maduro tem um ciclo de vida em três fases: <strong>preparar</strong> o material de teste, <strong>executar</strong> o teste e tirar uma nota, e <strong>ajustar</strong> o que está sendo testado com base no resultado — o que leva de volta à execução. É um loop, não uma linha reta: a fase 3 não é o fim, é a entrada pra um novo ciclo da fase 2.</p>
+
+  <h3>Fase 1 — Preparação</h3>
+
+  <p>A preparação acontece uma vez (ou a cada mudança grande de escopo) e define o que "certo" significa antes de qualquer resposta existir. Isso é o que dá honestidade ao eval: se você define o gabarito depois de ver a resposta do modelo, está ajustando a régua pro resultado caber nela.</p>
+
+  <ol>
+    <li><strong>Política interna.</strong> O documento-fonte que contém as regras que o modelo precisa seguir — no caso do atendimento via chat, prazos, valores, condições, exceções. É o material contra o qual tudo será medido, então vale a pena estruturá-lo em seções numeradas: cada pergunta do eval pode então apontar pra seção específica que a responde, o que ajuda a rastrear lacunas (seções que nenhuma pergunta cobre são um sinal de alerta).</li>
+    <li><strong>Bateria de perguntas.</strong> O conjunto fixo de casos de teste. Vale pensar em cobertura deliberada, não só juntar perguntas óbvias: categorias diferentes de pedido, níveis de dificuldade (direto no documento, exige combinar duas seções, não tem resposta no documento), e casos de borda — o que o modelo faz quando a informação simplesmente não existe na política? Um bom teste de "não invente" é tão importante quanto um teste de "responda certo".</li>
+    <li><strong>Respostas de referência.</strong> Para cada pergunta, uma pessoa escreve a resposta correta — não o modelo. Essa é a verdade contra a qual o modelo sob teste será comparado depois. É trabalho manual e não tem atalho: um eval é tão bom quanto o gabarito que ele usa.</li>
+    <li><strong>System prompt inicial.</strong> A primeira versão das instruções que vão governar o comportamento do modelo. Faz parte do eval porque é exatamente o que vai ser testado, ajustado e testado de novo — por isso vale guardar com número de versão desde o início, nunca sobrescrevendo a anterior. Comparar a v3 com a v1 só é possível se a v1 ainda existir.</li>
+    <li><strong>Fatos esperados.</strong> Pra cada resposta de referência, uma lista dos trechos que precisam aparecer pra resposta ser considerada correta — um valor, um prazo, uma condição. É o que permite nota automática na fase seguinte, sem depender de outro modelo pra julgar cada caso.</li>
+  </ol>
+
+  <h3>Fase 2 — Execução</h3>
+
+  <p>Com o material pronto, a execução roda o teste e produz notas. Aqui entram três camadas de avaliação, cada uma com um ponto cego diferente — e é exatamente por isso que as três coexistem.</p>
+
+  <ol>
+    <li><strong>Envio ao modelo sob teste.</strong> A bateria inteira é enviada de uma vez, com o system prompt da vez e o documento de política como contexto. Vale registrar tokens e latência junto com a resposta — além da qualidade, isso mostra se uma mudança no prompt encareceu ou atrasou o atendimento.</li>
+    <li><strong>Nota por fatos.</strong> Checagem automática: cada fato esperado apareceu na resposta? É barata, rápida de rodar em qualquer volume e <strong>objetiva</strong> — não depende de interpretação. O ponto cego dela é óbvio: um texto pode conter todos os fatos certos e ainda assim ser confuso, ou conter os fatos certos por acaso, no meio de uma resposta errada.</li>
+    <li><strong>Modelo juiz.</strong> Um segundo modelo recebe a pergunta, a resposta de referência, os fatos esperados e a resposta do modelo sob teste, e dá um veredito — por exemplo correta / parcial / incorreta. É mais caro que a nota por fatos, mas pega nuance que uma checagem literal não pega: contradição, informação inventada, resposta tecnicamente certa mas mal formulada. O prompt do juiz importa tanto quanto o prompt sob teste — vale ser explícito sobre o que conta como "essencial" (valores, prazos, condições) e o que não conta (diferença de formatação, redação).</li>
+    <li><strong>Nota humana.</strong> Uma pessoa revisa e pontua manualmente, pelo menos uma amostra. Essa camada existe pra calibrar as outras duas: se o juiz e a nota por fatos divergem muito do julgamento humano, o problema não é o modelo sob teste — é o critério de avaliação que precisa de ajuste.</li>
+    <li><strong>Avaliação dos resultados.</strong> As três notas, lado a lado, por execução. Aqui a pergunta deixa de ser "o modelo acertou essa pergunta" e vira "esse system prompt já está bom o suficiente pra produção, ou ainda tem padrão de erro claro". Vale olhar não só a média, mas onde as notas discordam entre si — isso costuma apontar exatamente o tipo de caso que precisa de mais atenção.</li>
+  </ol>
+
+  <h3>Fase 3 — Ajuste e repetição</h3>
+
+  <ol>
+    <li><strong>Reformulação do system prompt.</strong> Com os resultados em mãos, o prompt é ajustado pra corrigir o padrão de erro encontrado — não pra "parecer melhor", mas pra resolver o que os números mostraram. Isso também vira uma nova versão, nunca uma edição da anterior: o histórico de versões é o que permite, mais tarde, explicar por que uma mudança foi feita.</li>
+    <li><strong>Repetição da fase 2.</strong> O prompt novo volta pro início da execução, roda a mesma bateria, e as mesmas três camadas de nota entram de novo. O ciclo se repete até os resultados pararem de melhorar de forma significativa ou atingirem o padrão que o time definiu como aceitável antes de começar — não um padrão definido na hora, olhando pro resultado.</li>
+  </ol>
+
+  <div class="divider"></div>
+
+  <h2>Armadilhas comuns</h2>
+
+  <p><strong>Mudar a bateria de perguntas no meio do processo.</strong> Se você adiciona ou remove perguntas entre uma execução e outra, as notas deixam de ser comparáveis. Mude a bateria quando quiser expandir cobertura, mas trate isso como início de um novo histórico, não como continuação do antigo.</p>
+
+  <p><strong>Deixar o juiz ser o único critério.</strong> Um modelo julgando outro modelo tende a herdar os mesmos vieses — inclusive o de achar um texto bem escrito mais convincente que um texto correto. A nota humana, mesmo em amostra pequena, é o que ancora o resto.</p>
+
+  <p><strong>Otimizar para a métrica errada.</strong> Nota por fatos alta não significa resposta boa — só significa que os trechos certos apareceram em algum lugar do texto. Olhar só um número tende a produzir prompts que "decoram o gabarito" sem necessariamente ficarem mais úteis.</p>
+
+  <p><strong>Não versionar nada.</strong> Sem guardar cada versão do prompt, do documento e das notas que ela produziu, fica impossível responder "o que mudou entre a v2 e a v3" — e essa é a pergunta mais importante de um ciclo de ajuste.</p>
+
+  <h2>Fechando</h2>
+
+  <p>Um eval bem montado não é sobre chegar numa nota perfeita — é sobre ter um processo honesto o suficiente pra saber, a cada mudança, se as coisas melhoraram, pioraram ou só mudaram de lugar. A estrutura em três fases (preparar, executar, ajustar) existe pra manter o gabarito fixo enquanto o que está sendo testado evolui — que é exatamente o contrário do que a maioria faz quando testa um prompt "no olho".</p>
+
+</article>
+
+<nav class="article-footer-nav">
+  <a href="portal.html#artigos">&larr; Ver outros artigos</a>
+</nav>
+
+<footer>rolmertelis.com.br</footer>
+
+</body>
+</html>
