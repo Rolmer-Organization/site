@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link indisponível</title>
+<meta name="description" content="Rolmer Telis — este link ainda não está disponível.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #14120F;
+    --ink-soft: #1B1815;
+    --paper: #EDE7DC;
+    --paper-dim: #A79E8E;
+    --brass: #B08D4E;
+    --brass-dim: #6B5A38;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html,body{ height:100%; }
+
+  body{
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .field{
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(176,141,78,0.08), transparent 60%),
+      var(--ink);
+  }
+
+  .monogram{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: min(60vw, 60vh);
+    line-height: 1;
+    color: var(--ink-soft);
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+
+  main{
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .eyebrow{
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 28px;
+  }
+
+  h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    letter-spacing: -0.01em;
+    color: var(--paper);
+  }
+
+  .rule-wrap{
+    width: 220px;
+    height: 14px;
+    margin: 30px 0;
+  }
+
+  .rule-wrap svg{
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .rule-wrap path{
+    fill: none;
+    stroke: var(--brass);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+  }
+
+  p.desc{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--paper-dim);
+    max-width: 420px;
+  }
+
+  .back{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 38px;
+    padding: 14px 30px;
+    border: 1px solid var(--brass);
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper);
+    text-decoration: none;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+
+  .back:hover{
+    background: var(--brass);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  footer{
+    position: absolute;
+    bottom: 32px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass-dim);
+  }
+
+  @media (max-width: 480px){
+    .monogram{ font-size: 80vw; }
+  }
+</style>
+</head>
+<body>
+
+<div class="field"></div>
+<div class="monogram" aria-hidden="true">RT</div>
+
+<main>
+  <div class="eyebrow">Ainda não</div>
+  <h1>Este link é só um exemplo</h1>
+
+  <div class="rule-wrap" aria-hidden="true">
+    <svg viewBox="0 0 220 14">
+      <path d="M4 8 C 40 2, 80 12, 110 7 S 180 2, 216 8" />
+    </svg>
+  </div>
+
+  <p class="desc">O conteúdo apontado por este link ainda não foi publicado. Em breve o endereço real estará no ar.</p>
+
+  <a class="back" href="portal.html">Voltar ao portal</a>
+
+  <footer>rolmertelis.com.br</footer>
+</main>
+
+</body>
+</html>
