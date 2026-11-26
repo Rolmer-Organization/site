@@ -253,6 +253,54 @@
     text-align: center;
   }
 
+  .mcp-intro{
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--paper-dim);
+    max-width: 680px;
+    margin-bottom: 28px;
+  }
+
+  .links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .pill{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border: 1px solid var(--brass);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--paper);
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  .pill:hover{ background: var(--brass); color: var(--ink); }
+
+  .pill.ghost{ border-color: var(--card-border); color: var(--paper-dim); }
+  .pill.ghost:hover{ border-color: var(--brass); background: transparent; color: var(--brass); }
+
+  .card.soon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-style: dashed;
+    cursor: default;
+  }
+
+  .card.soon:hover{ transform: none; border-color: var(--card-border); }
+
+  .card.soon .tag{ align-self: flex-start; }
+
   footer{
     text-align: center;
     padding: 40px 24px 50px;
@@ -349,6 +397,7 @@
   <a class="brand" href="../index.html">Rolmer <span>Telis</span></a>
   <nav>
     <a href="#sobre">Sobre</a>
+    <a href="#mcp">Trilha MCP</a>
     <a href="#artigos">Artigos</a>
     <a href="#repos">Repos</a>
     <a href="#playlists">Playlists</a>
@@ -358,7 +407,7 @@
 <div class="hero">
   <div class="eyebrow">Portal</div>
   <h1>O que eu escrevo, construo e ensino</h1>
-  <p>Um espaço com artigos, repositórios de código e playlists. Os itens abaixo são exemplos de layout — os links reais entram em breve.</p>
+  <p>Um espaço com artigos, repositórios de código e playlists sobre programação, cloud e inteligência artificial.</p>
 </div>
 
 <section id="sobre" class="about">
@@ -380,12 +429,79 @@
   </div>
 </section>
 
-<p class="notice">⚠️ Artigos e repos abaixo são exemplos de layout — os links reais entram em breve. As playlists já são reais e levam direto ao meu canal no YouTube.</p>
+
+<section id="mcp">
+  <div class="section-head">
+    <h2>Trilha MCP com Claude</h2>
+    <span>Grátis · YouTube</span>
+  </div>
+  <p class="mcp-intro">Uma série de aulas para entender o Model Context Protocol, o padrão que liga o Claude (e outros modelos) aos seus dados e sistemas, e para construir, do zero e em Python, um cliente e um servidor MCP. O código é simples e todo comentado, pensado para quem está começando.</p>
+  <div class="grid">
+    <a class="card media" href="https://www.youtube.com/watch?v=AlefKNapbPQ&amp;list=PLPVHrb6gPPuc" target="_blank" rel="noopener noreferrer">
+      <div class="thumb">
+        <img src="https://i.ytimg.com/vi/AlefKNapbPQ/hqdefault.jpg" alt="Miniatura da Aula 1: MCP explicado: como o Claude enxerga os seus dados" loading="lazy">
+        <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#EDE7DC"><circle cx="12" cy="12" r="11" fill="rgba(20,18,15,0.55)"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg></div>
+      </div>
+      <div class="body">
+        <span class="tag yt">Aula 1</span>
+        <h3>MCP explicado: como o Claude enxerga os seus dados</h3>
+        <p>O que é e o que não é MCP, quem é host, cliente e servidor, e o caminho completo de uma chamada de ferramenta.</p>
+        <div class="meta">YouTube · Conceito</div>
+      </div>
+    </a>
+    <a class="card media" href="https://www.youtube.com/watch?v=2y1HbZM4OEk&amp;list=PLPVHrb6gPPuc" target="_blank" rel="noopener noreferrer">
+      <div class="thumb">
+        <img src="https://i.ytimg.com/vi/2y1HbZM4OEk/hqdefault.jpg" alt="Miniatura da Aula 2: Quando NÃO usar MCP" loading="lazy">
+        <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#EDE7DC"><circle cx="12" cy="12" r="11" fill="rgba(20,18,15,0.55)"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg></div>
+      </div>
+      <div class="body">
+        <span class="tag yt">Aula 2</span>
+        <h3>Quando NÃO usar MCP</h3>
+        <p>Três perguntas para decidir se o seu caso pede MCP, e o Claude chamando uma ferramenta ao vivo.</p>
+        <div class="meta">YouTube · Conceito</div>
+      </div>
+    </a>
+    <a class="card media" href="https://www.youtube.com/watch?v=1Nx5x0SnSwo&amp;list=PLPVHrb6gPPuc" target="_blank" rel="noopener noreferrer">
+      <div class="thumb">
+        <img src="https://i.ytimg.com/vi/1Nx5x0SnSwo/hqdefault.jpg" alt="Miniatura da Aula 3: Seu primeiro cliente MCP em Python" loading="lazy">
+        <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#EDE7DC"><circle cx="12" cy="12" r="11" fill="rgba(20,18,15,0.55)"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg></div>
+      </div>
+      <div class="body">
+        <span class="tag yt">Aula 3</span>
+        <h3>Seu primeiro cliente MCP em Python</h3>
+        <p>Um cliente do zero com o SDK 2.x, conversando com um servidor pronto pelo stdio.</p>
+        <div class="meta">YouTube · Código</div>
+      </div>
+    </a>
+    <a class="card media" href="https://www.youtube.com/watch?v=8Hclcmxblb0&amp;list=PLPVHrb6gPPuc" target="_blank" rel="noopener noreferrer">
+      <div class="thumb">
+        <img src="https://i.ytimg.com/vi/8Hclcmxblb0/hqdefault.jpg" alt="Miniatura da Aula 4: Crie seu servidor MCP em Python" loading="lazy">
+        <div class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#EDE7DC"><circle cx="12" cy="12" r="11" fill="rgba(20,18,15,0.55)"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg></div>
+      </div>
+      <div class="body">
+        <span class="tag yt">Aula 4</span>
+        <h3>Crie seu servidor MCP em Python</h3>
+        <p>Ferramentas, recursos e prompts num servidor próprio, testado no MCP Inspector.</p>
+        <div class="meta">YouTube · Código</div>
+      </div>
+    </a>
+    <div class="card soon">
+      <span class="tag">Em breve</span>
+      <h3>Aulas 5 e 6</h3>
+      <p>Ligando tudo ao app do Claude e cuidando da segurança dos seus servidores MCP.</p>
+    </div>
+  </div>
+  <div class="links">
+    <a class="pill" href="https://www.youtube.com/playlist?list=PLPVHrb6gPPuc" target="_blank" rel="noopener noreferrer">Assistir à trilha</a>
+    <a class="pill ghost" href="https://www.youtube.com/@rolmertelis/shorts" target="_blank" rel="noopener noreferrer">Ver os Shorts</a>
+    <a class="pill ghost" href="https://github.com/Rolmer-Organization/curso-mcp-claude" target="_blank" rel="noopener noreferrer">Código no GitHub</a>
+  </div>
+</section>
 
 <section id="artigos">
   <div class="section-head">
     <h2>Artigos</h2>
-    <span>1 artigo · 2 exemplos</span>
+    <span>1 artigo</span>
   </div>
   <div class="grid">
     <a class="card" href="como-montar-um-eval.html">
@@ -394,44 +510,50 @@
       <p>As três fases — preparar, executar, ajustar — pra testar um modelo numa tarefa, com atendimento via chat como exemplo.</p>
       <div class="meta">Artigo · 9 min de leitura</div>
     </a>
-    <a class="card" href="erro.html">
-      <span class="tag">Exemplo</span>
-      <h3>Por que simplicidade é uma escolha difícil</h3>
-      <p>Reflexões sobre remover em vez de adicionar, em software e no resto.</p>
-      <div class="meta">Artigo · 4 min de leitura</div>
-    </a>
-    <a class="card" href="erro.html">
-      <span class="tag">Exemplo</span>
-      <h3>Um guia pessoal de ferramentas</h3>
-      <p>As ferramentas que uso todos os dias e por que troquei as antigas.</p>
-      <div class="meta">Artigo · 8 min de leitura</div>
-    </a>
   </div>
 </section>
 
 <section id="repos">
   <div class="section-head">
     <h2>Repos</h2>
-    <span>03 exemplos</span>
+    <span>06 repositórios · GitHub</span>
   </div>
   <div class="grid">
-    <a class="card" href="erro.html">
-      <span class="tag">Exemplo</span>
-      <h3>projeto-alfa</h3>
-      <p>Uma ferramenta de linha de comando para organizar anotações locais.</p>
-      <div class="meta">TypeScript · MIT</div>
+    <a class="card" href="https://github.com/Rolmer-Organization/curso-mcp-claude" target="_blank" rel="noopener noreferrer">
+      <span class="tag">MCP</span>
+      <h3>curso-mcp-claude</h3>
+      <p>Código da trilha MCP com Claude: cliente e servidor MCP em Python, construídos aula a aula.</p>
+      <div class="meta">Python · GitHub</div>
     </a>
-    <a class="card" href="erro.html">
-      <span class="tag">Exemplo</span>
-      <h3>site-portfolio</h3>
-      <p>Código-fonte deste próprio site, aberto para referência.</p>
-      <div class="meta">HTML/CSS · MIT</div>
+    <a class="card" href="https://github.com/Rolmer-Organization/api_anthropic" target="_blank" rel="noopener noreferrer">
+      <span class="tag">Claude</span>
+      <h3>api_anthropic</h3>
+      <p>A API com Flask integrada ao Claude, construída na playlist Um Claude Pra Chamar de Seu.</p>
+      <div class="meta">Python · GitHub</div>
     </a>
-    <a class="card" href="erro.html">
-      <span class="tag">Exemplo</span>
-      <h3>utils-python</h3>
-      <p>Pequenos utilitários e scripts que uso em projetos pessoais.</p>
-      <div class="meta">Python · MIT</div>
+    <a class="card" href="https://github.com/Rolmer-Organization/finguard" target="_blank" rel="noopener noreferrer">
+      <span class="tag">AWS Bedrock</span>
+      <h3>finguard</h3>
+      <p>Hackathon Future Minds 3: análise de reclamações bancárias com IA generativa na AWS.</p>
+      <div class="meta">HTML · Bedrock · GitHub</div>
+    </a>
+    <a class="card" href="https://github.com/Rolmer-Organization/golang-heros" target="_blank" rel="noopener noreferrer">
+      <span class="tag">Go</span>
+      <h3>golang-heros</h3>
+      <p>Aprendendo boas práticas de Go a partir da experiência com Java.</p>
+      <div class="meta">Go · GitHub</div>
+    </a>
+    <a class="card" href="https://github.com/Rolmer-Organization/saa-annotations" target="_blank" rel="noopener noreferrer">
+      <span class="tag">AWS</span>
+      <h3>saa-annotations</h3>
+      <p>Anotações em tópicos para revisar a prova AWS Solutions Architect Associate.</p>
+      <div class="meta">Markdown · GitHub</div>
+    </a>
+    <a class="card" href="https://github.com/Rolmer-Organization/site" target="_blank" rel="noopener noreferrer">
+      <span class="tag">Este site</span>
+      <h3>site</h3>
+      <p>O código-fonte deste site, aberto para referência.</p>
+      <div class="meta">HTML/CSS · GitHub</div>
     </a>
   </div>
 </section>
@@ -452,8 +574,8 @@
       <div class="body">
         <span class="tag yt">YouTube</span>
         <h3>Um Claude Pra Chamar de Seu</h3>
-        <p>Criando uma API própria integrada ao Claude AI do zero, com Python e Flask — direto ao ponto, sem pular etapas.</p>
-        <div class="meta">16 vídeos · Claude AI</div>
+        <p>Criando uma API própria integrada ao Claude AI do zero, com Python e Flask — e agora também a trilha MCP com Claude.</p>
+        <div class="meta">26 vídeos · Claude AI</div>
       </div>
     </a>
     <a class="card media" href="https://www.youtube.com/playlist?list=PLXW6NbGegjPVS1INPEKadDwq3VJENljwO" target="_blank" rel="noopener noreferrer">
